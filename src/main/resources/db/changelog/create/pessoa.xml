@@ -22,7 +22,28 @@
             <column name="sobrenome" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="id_posicao_banda" type="integer"/>
         </createTable>
+    </changeSet>
+
+
+    <changeSet id="add-fk-pessoa-posicao-banda" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="pessoa"/>
+                <tableExists tableName="posicao_banda"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_pessoa_posicao_banda"
+                                                foreignKeyTableName="pessoa"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="pessoa"
+                                 baseColumnNames="id_posicao_banda"
+                                 constraintName="fk_pessoa_posicao_banda"
+                                 referencedTableName="posicao_banda"
+                                 referencedColumnNames="id"/>
     </changeSet>
 
 </databaseChangeLog>

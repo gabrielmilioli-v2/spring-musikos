@@ -1,0 +1,7 @@
+databaseChangeLog:
+  - include:
+      file: classpath:/db/changelog/create/posicao-banda.xml
+  - include:
+      file: classpath:/db/changelog/create/pessoa.xml
+  - include:
+      file: classpath:/db/changelog/insert/posicao-banda.xml

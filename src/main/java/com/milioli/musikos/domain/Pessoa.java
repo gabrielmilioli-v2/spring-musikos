@@ -1,5 +1,6 @@
 package com.milioli.musikos.domain;
 
+import com.milioli.musikos.enums.PosicaoBanda;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,5 +26,8 @@ public class Pessoa {
     @Column
     @Length(max = 100)
     private String sobrenome;
+
+    @Column(name = "id_posicao_banda")
+    private PosicaoBanda posicaoBanda;
 
 }
