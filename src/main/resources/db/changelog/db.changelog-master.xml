@@ -1,0 +1,14 @@
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <!--  CREATE  -->
+    <include file="db/changelog/create/posicao-banda.xml"/>
+    <include file="db/changelog/create/pessoa.xml"/>
+
+    <!--  INSERT  -->
+    <include file="db/changelog/insert/posicao-banda.xml"/>
+
+</databaseChangeLog>
