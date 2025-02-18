@@ -1,7 +1,7 @@
 package com.milioli.musikos.repository;
 
 import com.milioli.musikos.config.PersistenceTestConfig;
-import com.milioli.musikos.domain.User;
+import com.milioli.musikos.domain.Musician;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,15 +13,15 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = PersistenceTestConfig.class)
-public class UserRepositoryTest {
+public class MusicianRepositoryTest {
 
     @Autowired
-    private UserRepository repository;
+    private MusicianRepository repository;
 
     @Test
     void findAll() {
-        final List<User> users = repository.findAll();
-        Assertions.assertThat(users).isNotEmpty();
+        final List<Musician> musicians = repository.findAll();
+        Assertions.assertThat(musicians).isNotEmpty();
     }
 
 }

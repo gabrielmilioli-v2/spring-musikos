@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_table_band" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="band"/>
+            </not>
+        </preConditions>
+        <createTable tableName="band">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_musician" type="uuid"/>
+            <column name="description" type="varchar(2000)"/>
+            <column name="instagram" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_band_musician" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="band"/>
+                <tableExists tableName="musician"/>
+                <columnExists tableName="band" columnName="id_musician"/>
+                <columnExists tableName="musician" columnName="id"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_band_musician"
+                                                foreignKeyTableName="band"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="band"
+                                 baseColumnNames="id_musician"
+                                 constraintName="fk_band_musician"
+                                 referencedTableName="musician"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
