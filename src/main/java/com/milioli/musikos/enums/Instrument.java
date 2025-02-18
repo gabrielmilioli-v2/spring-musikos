@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-public enum PosicaoBanda implements PersistableEnum<Long> {
+public enum Instrument implements PersistableEnum<Long> {
 
     OUTRO(1L, "Outro"),
     GUITARRA(2L, "Guitarra"),
@@ -15,6 +15,6 @@ public enum PosicaoBanda implements PersistableEnum<Long> {
     VOCAL(5L, "Vocal");
 
     private final Long id;
-    private final String descricao;
+    private final String description;
 
 }

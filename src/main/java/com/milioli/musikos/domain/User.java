@@ -1,6 +1,6 @@
 package com.milioli.musikos.domain;
 
-import com.milioli.musikos.enums.PosicaoBanda;
+import com.milioli.musikos.enums.Instrument;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +12,7 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Pessoa {
+public class User {
 
     @Id
     @GeneratedValue
@@ -21,13 +21,17 @@ public class Pessoa {
 
     @Column
     @Length(max = 50)
-    private String nome;
+    private String name;
+
+    @Column(name = "last_name")
+    @Length(max = 100)
+    private String lastName;
 
     @Column
     @Length(max = 100)
-    private String sobrenome;
+    private String password;
 
-    @Column(name = "id_posicao_banda")
-    private PosicaoBanda posicaoBanda;
+    @Column(name = "id_instrument")
+    private Instrument instrument;
 
 }

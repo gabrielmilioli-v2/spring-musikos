@@ -5,18 +5,18 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="create-table-posicao-banda" author="gabriel.milioli">
+    <changeSet id="create_table_instrument" author="gabriel.milioli">
         <validCheckSum>ANY</validCheckSum>
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="posicao_banda"/>
+                <tableExists tableName="instrument"/>
             </not>
         </preConditions>
-        <createTable tableName="posicao_banda">
+        <createTable tableName="instrument">
             <column name="id" type="integer" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="descricao" type="varchar(50)">
+            <column name="description" type="varchar(50)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

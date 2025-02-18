@@ -4,6 +4,6 @@ public interface PersistableEnum<T> {
 
     T getId();
 
-    String getDescricao();
+    String getDescription();
 
 }
