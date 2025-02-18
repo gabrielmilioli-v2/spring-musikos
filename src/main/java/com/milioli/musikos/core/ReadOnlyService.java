@@ -1,13 +1,10 @@
 package com.milioli.musikos.core;
 
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service
-@AllArgsConstructor
 public class ReadOnlyService<T, S extends java.io.Serializable> {
 
     @Autowired
@@ -15,6 +12,10 @@ public class ReadOnlyService<T, S extends java.io.Serializable> {
 
     public List<T> findAll() {
         return repository.findAll();
+    }
+
+    public Optional<T> findById(S id) {
+        return repository.findById(id);
     }
 
 }
