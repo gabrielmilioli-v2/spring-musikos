@@ -16,7 +16,7 @@ import java.util.List;
 public class UserRepositoryTest {
 
     @Autowired
-    private PessoaRepository repository;
+    private UserRepository repository;
 
     @Test
     void findAll() {
