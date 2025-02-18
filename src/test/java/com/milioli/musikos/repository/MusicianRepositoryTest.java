@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,7 +21,7 @@ public class MusicianRepositoryTest {
 
     @Test
     void findAll() {
-        final List<Musician> musicians = repository.findAll();
+        final Iterable<Musician> musicians = repository.findAll();
         Assertions.assertThat(musicians).isNotEmpty();
     }
 

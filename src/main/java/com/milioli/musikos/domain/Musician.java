@@ -1,5 +1,6 @@
 package com.milioli.musikos.domain;
 
+import com.milioli.musikos.core.BaseEntity;
 import com.milioli.musikos.enums.Instrument;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -13,7 +14,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table
-public class Musician {
+public class Musician implements BaseEntity<UUID> {
 
     @Id
     @GeneratedValue
