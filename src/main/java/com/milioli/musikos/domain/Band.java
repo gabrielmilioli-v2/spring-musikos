@@ -1,6 +1,6 @@
 package com.milioli.musikos.domain;
 
-import com.milioli.musikos.enums.Instrument;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -13,7 +13,7 @@ import java.util.UUID;
 @Entity
 @Data
 @Table
-public class Musician {
+public class Band {
 
     @Id
     @GeneratedValue
@@ -25,19 +25,11 @@ public class Musician {
     @NotNull
     private String name;
 
-    @Column(name = "last_name")
-    @Length(max = 100)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_musician")
+    @JsonIgnoreProperties({"bands"})
     @NotNull
-    private String lastName;
-
-    @Column
-    @Length(max = 100)
-    @NotNull
-    private String password;
-
-    @Column(name = "id_instrument")
-    @NotNull
-    private Instrument instrument;
+    private Musician createdBy;
 
     @Length(max = 2000)
     private String description;
@@ -45,10 +37,8 @@ public class Musician {
     @Length(max = 100)
     private String instagram;
 
-    @Length(max = 20)
-    private String phone;
-
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final Set<Band> bands = new HashSet<>();
+    @OneToMany(mappedBy = "band")
+    @JsonIgnoreProperties({"band", "musician.bands"})
+    private final Set<BandMusician> musicians = new HashSet<>();
 
 }
