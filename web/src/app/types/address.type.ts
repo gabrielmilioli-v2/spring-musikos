@@ -10,3 +10,8 @@ export type NeighborhoodType = {
   neighborhood: string;
   streets: string[];
 };
+export type AddressFilter = {
+  state?: string | null;
+  city?: string | null;
+  neighborhood?: string | null;
+};

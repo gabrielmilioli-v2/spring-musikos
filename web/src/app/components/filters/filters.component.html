@@ -1,8 +1,8 @@
-<form [formGroup]="filtersForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <div class="flex gap-2 w-full">
     <mat-form-field class="flex-1">
       <mat-label>State</mat-label>
-      <mat-select [formControl]="filtersForm.controls.state">
+      <mat-select formControlName="state">
         @for (state of states; track state) {
         <mat-option [value]="state">{{ state.state }}</mat-option>
         }
@@ -11,8 +11,8 @@
 
     <mat-form-field class="flex-1">
       <mat-label>City</mat-label>
-      <mat-select [formControl]="filtersForm.controls.city">
-        @for (city of filtersForm.value.state?.cities; track city) {
+      <mat-select formControlName="city">
+        @for (city of form.value.state?.cities; track city) {
         <mat-option [value]="city">{{ city.city }}</mat-option>
         }
       </mat-select>
@@ -20,8 +20,8 @@
 
     <mat-form-field class="flex-1">
       <mat-label>Neighborhood</mat-label>
-      <mat-select [formControl]="filtersForm.controls.neighborhood">
-        @for (neighborhood of filtersForm.value.city?.neighborhoods; track
+      <mat-select formControlName="neighborhood">
+        @for (neighborhood of form.value.city?.neighborhoods; track
         neighborhood) {
         <mat-option [value]="neighborhood">{{
           neighborhood.neighborhood
@@ -30,7 +30,7 @@
       </mat-select>
     </mat-form-field>
 
-    <button type="submit" [disabled]="!filtersForm.valid" mat-icon-button class="mt-2">
+    <button type="submit" [disabled]="!form.valid" mat-icon-button class="mt-2">
       <mat-icon>search</mat-icon>
     </button>
   </div>

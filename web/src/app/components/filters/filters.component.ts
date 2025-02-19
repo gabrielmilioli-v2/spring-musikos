@@ -12,6 +12,7 @@ import {
   Validators,
 } from '@angular/forms';
 
+import { FilterService } from '../../services/filter/filter.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -50,30 +51,37 @@ export class FiltersComponent implements OnInit {
     },
   ];
 
-  filtersForm = new FormGroup({
+  form = new FormGroup({
     state: new FormControl<StateType | null>(null, Validators.required),
     city: new FormControl<CityType | null>(null),
     neighborhood: new FormControl<NeighborhoodType | null>(null),
   });
 
+  constructor(private filterService: FilterService) {}
+
   ngOnInit(): void {
-    this.filtersForm.controls.city.disable();
-    this.filtersForm.controls.neighborhood.disable();
-    this.filtersForm.controls.state.valueChanges.subscribe((state) => {
-      this.filtersForm.controls.city.setValue(null);
+    this.form.controls.city.disable();
+    this.form.controls.neighborhood.disable();
+    this.form.controls.state.valueChanges.subscribe((state) => {
+      this.form.controls.city.setValue(null);
       if (state) {
-        this.filtersForm.controls.city.enable();
+        this.form.controls.city.enable();
       }
     });
-    this.filtersForm.controls.city.valueChanges.subscribe((city) => {
-      this.filtersForm.controls.neighborhood.setValue(null);
+    this.form.controls.city.valueChanges.subscribe((city) => {
+      this.form.controls.neighborhood.setValue(null);
       if (city) {
-        this.filtersForm.controls.neighborhood.enable();
+        this.form.controls.neighborhood.enable();
       }
     });
   }
 
   onSubmit() {
-    console.warn(this.filtersForm.value);
+    this.filterService.observer.emit({
+      state: this.form.value.state?.state,
+      city: this.form.value.city?.city,
+      neighborhood: this.form.value.neighborhood?.neighborhood,
+    });
+    // console.warn(this.form.value);
   }
 }
