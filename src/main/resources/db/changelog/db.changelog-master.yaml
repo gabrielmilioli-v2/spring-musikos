@@ -1,5 +1,7 @@
 databaseChangeLog:
   - include:
+      file: classpath:/db/changelog/create/admin.xml
+  - include:
       file: classpath:/db/changelog/create/instrument.xml
   - include:
       file: classpath:/db/changelog/create/musician.xml

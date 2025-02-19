@@ -1,20 +1,16 @@
 package com.milioli.musikos.service;
 
-import com.milioli.musikos.config.PersistenceTestConfig;
+import com.milioli.musikos.config.GlobalTestConfig;
 import com.milioli.musikos.domain.Musician;
 import com.milioli.musikos.enums.Instrument;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
 import java.util.UUID;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = PersistenceTestConfig.class)
+@GlobalTestConfig
 public class MusicianServiceTest {
 
     @Autowired

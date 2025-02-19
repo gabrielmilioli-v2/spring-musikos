@@ -2,6 +2,7 @@ package com.milioli.musikos.domain;
 
 import com.milioli.musikos.core.BaseEntity;
 import com.milioli.musikos.enums.Instrument;
+import com.milioli.musikos.record.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -56,5 +57,8 @@ public class Musician implements BaseEntity<UUID> {
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<Band> bands = new HashSet<>();
+
+    @Embedded
+    private Address address;
 
 }
