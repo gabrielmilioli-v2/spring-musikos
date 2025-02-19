@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_table_band_musician" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="band_musician"/>
+            </not>
+        </preConditions>
+        <createTable tableName="band_musician">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_musician" type="uuid"/>
+            <column name="id_band" type="uuid"/>
+            <column name="id_instrument" type="integer"/>
+            <column name="description" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_bandmusician_band" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="band"/>
+                <tableExists tableName="band_musician"/>
+                <columnExists tableName="band_musician" columnName="id_band"/>
+                <columnExists tableName="band" columnName="id"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_bandmusician_band"
+                                                foreignKeyTableName="band_musician"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="band_musician"
+                                 baseColumnNames="id_band"
+                                 constraintName="fk_bandmusician_band"
+                                 referencedTableName="band"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_fk_bandmusician_musician" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="band_musician"/>
+                <tableExists tableName="musician"/>
+                <columnExists tableName="band_musician" columnName="id_musician"/>
+                <columnExists tableName="musician" columnName="id"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_bandmusician_musician"
+                                                foreignKeyTableName="band_musician"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="band_musician"
+                                 baseColumnNames="id_musician"
+                                 constraintName="fk_bandmusician_musician"
+                                 referencedTableName="musician"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_fk_band_musician_instrument" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="band_musician"/>
+                <tableExists tableName="instrument"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_band_musician_instrument"
+                                                foreignKeyTableName="band_musician"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="band_musician"
+                                 baseColumnNames="id_instrument"
+                                 constraintName="fk_band_musician_instrument"
+                                 referencedTableName="instrument"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

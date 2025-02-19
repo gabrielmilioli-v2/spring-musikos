@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_table_musician" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="musician"/>
+            </not>
+        </preConditions>
+        <createTable tableName="musician">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="first_name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="encoded_password" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="id_instrument" type="integer"/>
+            <column name="description" type="varchar(2000)"/>
+            <column name="instagram" type="varchar(100)"/>
+            <column name="phone" type="varchar(20)"/>
+            <column name="postcode" type="varchar(10)"/>
+            <column name="street" type="varchar(100)"/>
+            <column name="neighborhood" type="varchar(100)"/>
+            <column name="city" type="varchar(100)"/>
+            <column name="state" type="varchar(2)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_musician_instrument" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="musician"/>
+                <tableExists tableName="instrument"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_musician_instrument"
+                                                foreignKeyTableName="musician"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="musician"
+                                 baseColumnNames="id_instrument"
+                                 constraintName="fk_musician_instrument"
+                                 referencedTableName="instrument"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>
