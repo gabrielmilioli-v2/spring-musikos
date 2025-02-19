@@ -21,10 +21,10 @@ public class Musician implements BaseEntity<UUID> {
     @Column
     private UUID id;
 
-    @Column
+    @Column(name = "first_name")
     @Length(max = 50)
     @NotNull
-    private String name;
+    private String firstName;
 
     @Column(name = "last_name")
     @Length(max = 100)
@@ -34,7 +34,12 @@ public class Musician implements BaseEntity<UUID> {
     @Column
     @Length(max = 100)
     @NotNull
-    private String password;
+    private String email;
+
+    @Column(name = "encoded_password")
+    @Length(max = 100)
+    @NotNull
+    private String encodedPassword;
 
     @Column(name = "id_instrument")
     @NotNull

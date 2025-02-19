@@ -17,11 +17,17 @@ public class CrudService<T, ID extends java.io.Serializable> extends ReadOnlySer
         return repository.findById(id);
     }
 
+    public void beforeSave(T entity) {
+
+    }
+
     public T save(T entity) {
+        beforeSave(entity);
         return repository.save(entity);
     }
 
     public Iterable<T> saveAll(Iterable<T> entities) {
+        entities.forEach(this::beforeSave);
         return repository.saveAll(entities);
     }
 

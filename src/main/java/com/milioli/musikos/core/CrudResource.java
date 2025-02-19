@@ -12,7 +12,7 @@ public class CrudResource<T extends BaseEntity<ID>, ID extends java.io.Serializa
     private CrudService<T, ID> service;
 
     @PostMapping
-    public T save(@RequestBody T body) {
+    public T create(@RequestBody T body) {
         return service.save(body);
     }
 

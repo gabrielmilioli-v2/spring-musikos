@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.milioli.musikos.config.MvcConfig;
 import com.milioli.musikos.domain.Musician;
 import com.milioli.musikos.enums.Instrument;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -28,6 +29,7 @@ public class MusicianResourceTest {
     @Autowired
     private WebApplicationContext webApplicationContext;
     private MockMvc mockMvc;
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @BeforeEach
     void setup() {
@@ -47,19 +49,29 @@ public class MusicianResourceTest {
     }
 
     @Test
-    void save() throws Exception {
+    void create() throws Exception {
 
         final Musician musician = new Musician();
-        musician.setName("Gabriel");
+        musician.setFirstName("Gabriel");
         musician.setLastName("Milioli");
-        musician.setPassword("senha123");
+        musician.setEncodedPassword("senha123");
+        musician.setEmail("gabriel@milioli.com");
         musician.setInstrument(Instrument.BAIXO);
 
-        mockMvc.perform(post("/musicians")
+        final String responseAsString = mockMvc.perform(post("/musicians")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsString(musician)))
-                .andExpect(status().isOk());
+                        .content(objectMapper.writeValueAsString(musician)))
+                .andExpect(status().isOk())
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        final Musician musicianCreated = objectMapper.readValue(responseAsString, Musician.class);
+
+        Assertions.assertThat(musicianCreated).isNotNull();
+        Assertions.assertThat(musicianCreated.getId()).isNotNull();
+
     }
 
 }

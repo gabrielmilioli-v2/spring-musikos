@@ -10,4 +10,5 @@ import java.util.UUID;
 @RestController
 @RequestMapping("musicians")
 public class MusicianResource extends CrudResource<Musician, UUID> {
+
 }
