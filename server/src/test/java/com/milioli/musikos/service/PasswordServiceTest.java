@@ -12,7 +12,7 @@ public class PasswordServiceTest {
     private PasswordService service;
 
     @Test
-    void encode() throws Exception {
+    void encode() {
 
         final String rawPassword = "senha123";
         final String encodedPassword = service.encode(rawPassword);
@@ -22,7 +22,7 @@ public class PasswordServiceTest {
     }
 
     @Test
-    void check() throws Exception {
+    void check() {
 
         final String rawPassword = "senha123";
         final String encodedPassword = service.encode(rawPassword);

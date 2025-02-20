@@ -34,13 +34,14 @@ public class MusicianServiceTest {
         final Musician musician = new Musician();
         musician.setFirstName("Gabriel");
         musician.setLastName("Milioli");
-        musician.setEncodedPassword("senha123");
+        musician.setPassword("senha123");
         musician.setEmail("gabriel@milioli.com");
         musician.setInstrument(Instrument.BAIXO);
 
         final Musician musicianCreated = service.save(musician);
         Assertions.assertThat(musicianCreated).isNotNull();
         Assertions.assertThat(musicianCreated.getId()).isNotNull();
+        Assertions.assertThat(musicianCreated.getEncodedPassword()).isNotNull();
     }
 
 }

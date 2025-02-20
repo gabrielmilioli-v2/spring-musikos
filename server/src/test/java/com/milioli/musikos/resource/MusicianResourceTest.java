@@ -2,9 +2,9 @@ package com.milioli.musikos.resource;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.milioli.musikos.config.GlobalTestConfig;
-import com.milioli.musikos.record.Address;
 import com.milioli.musikos.domain.Musician;
 import com.milioli.musikos.enums.Instrument;
+import com.milioli.musikos.record.Address;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,13 +33,13 @@ public class MusicianResourceTest {
 
     @Test
     void findAll() throws Exception {
-        mockMvc.perform(get("/musicians"))
+        mockMvc.perform(get("/api/musicians"))
                 .andExpect(status().isOk());
     }
 
     @Test
     void findById() throws Exception {
-        mockMvc.perform(get("/musicians/cf980cb7-208c-4d82-860f-fb1bd575f673"))
+        mockMvc.perform(get("/api/musicians/cf980cb7-208c-4d82-860f-fb1bd575f673"))
                 .andExpect(status().isOk());
     }
 
@@ -49,12 +49,12 @@ public class MusicianResourceTest {
         final Musician musician = new Musician();
         musician.setFirstName("Gabriel");
         musician.setLastName("Milioli");
-        musician.setEncodedPassword("senha123");
+        musician.setPassword("senha123");
         musician.setEmail("gabriel@milioli.com");
         musician.setInstrument(Instrument.BAIXO);
         musician.setAddress(new Address("88020340", "", "", "", ""));
 
-        final String responseAsString = mockMvc.perform(post("/musicians")
+        final String responseAsString = mockMvc.perform(post("/api/musicians")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(musician)))
@@ -67,6 +67,7 @@ public class MusicianResourceTest {
 
         Assertions.assertThat(musicianCreated).isNotNull();
         Assertions.assertThat(musicianCreated.getId()).isNotNull();
+        Assertions.assertThat(musicianCreated.getEncodedPassword()).isNotNull();
 
     }
 

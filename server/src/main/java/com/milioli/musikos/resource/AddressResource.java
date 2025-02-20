@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Set;
 
 @RestController
-@RequestMapping("addresses")
+@RequestMapping("api/addresses")
 public class AddressResource {
 
     @Autowired

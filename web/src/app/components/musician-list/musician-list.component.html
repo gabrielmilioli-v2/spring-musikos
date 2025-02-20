@@ -1,11 +1,9 @@
 <mat-list>
-  @for (message of messages; track message) {
+  @for (musician of musicians; track musician) {
     <mat-list-item>
       <mat-icon matListItemIcon>folder</mat-icon>
-      <h3 matListItemTitle>{{message.from}}</h3>
+      <h3 matListItemTitle>{{musician.firstName}} {{musician.lastName}}</h3>
       <p matListItemLine>
-        <span>{{message.subject}}</span>
-        <span class="demo-2"> -- {{message.content}}</span>
       </p>
       <button mat-icon-button matListItemMeta>
         <mat-icon>info</mat-icon>

@@ -1,5 +1,6 @@
 package com.milioli.musikos.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.milioli.musikos.core.BaseEntity;
 import com.milioli.musikos.enums.Instrument;
 import com.milioli.musikos.record.Address;
@@ -39,7 +40,7 @@ public class Musician implements BaseEntity<UUID> {
 
     @Column(name = "encoded_password")
     @Length(max = 100)
-    @NotNull
+    @JsonIgnore
     private String encodedPassword;
 
     @Column(name = "id_instrument")
@@ -60,5 +61,8 @@ public class Musician implements BaseEntity<UUID> {
 
     @Embedded
     private Address address;
+
+    @Transient
+    private String password;
 
 }

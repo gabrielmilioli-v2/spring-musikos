@@ -1,6 +1,12 @@
 <mat-toolbar>
-  <span>{{ title }}</span>
+  <span>
+    <img src="images/logo.png" class="h-[64px]" />
+  </span>
   <span class="flex-1"></span>
-  <button mat-flat-button aria-label="Login button">Login</button>
+  @if (isLogged) {
+  <button mat-stroked-button aria-label="Login button" (click)="logout()">
+    Logout
+  </button>
+  }
 </mat-toolbar>
 <router-outlet />

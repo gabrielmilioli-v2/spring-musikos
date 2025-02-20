@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("bands")
+@RequestMapping("api/bands")
 public class BandResource extends CrudResource<Band, UUID> {
 }

@@ -1,1 +1,56 @@
-<p>register works!</p>
+<div class="flex w-full justify-center items-center p-4 h-screen">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-[300px]">
+    <div class="flex gap-2 flex-col">
+      <mat-form-field class="flex-1">
+        <mat-label>First name</mat-label>
+        <input matInput placeholder="First name" formControlName="firstName" />
+      </mat-form-field>
+
+      <mat-form-field class="flex-1">
+        <mat-label>Last name</mat-label>
+        <input matInput placeholder="Last name" formControlName="lastName" />
+      </mat-form-field>
+
+      <mat-form-field class="flex-1">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="Email" formControlName="email" />
+      </mat-form-field>
+
+      <mat-form-field class="flex-1">
+        <mat-label>Password</mat-label>
+        <input
+          matInput
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+        />
+      </mat-form-field>
+
+      <mat-form-field class="flex-1">
+        <mat-label>Main instrument</mat-label>
+        <mat-select formControlName="instrument">
+          @for (instrument of instruments; track instrument) {
+          <mat-option [value]="instrument">{{
+            instrument.description
+          }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <div formGroupName="address" class="w-full flex-1">
+        <mat-form-field class="w-full">
+          <mat-label>Postcode</mat-label>
+          <input matInput placeholder="Postcode" formControlName="postcode" (keyup)="handleKeyUpPostcode()" />
+        </mat-form-field>
+      </div>
+
+      <button type="submit" [disabled]="!form.valid" mat-flat-button>
+        Register
+      </button>
+
+      <button mat-button class="mt-2" (click)="goToLogin()">
+        Go back to login
+      </button>
+    </div>
+  </form>
+</div>

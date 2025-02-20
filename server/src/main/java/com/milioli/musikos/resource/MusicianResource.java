@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("musicians")
+@RequestMapping("api/musicians")
 public class MusicianResource extends CrudResource<Musician, UUID> {
 
 }

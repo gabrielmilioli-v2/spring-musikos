@@ -1,8 +1,8 @@
 package com.milioli.musikos.utils;
 
-public interface PersistableEnum<T> {
+public interface PersistableEnum<ID> {
 
-    T getId();
+    ID getId();
 
     String getDescription();
 
