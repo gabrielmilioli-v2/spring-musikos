@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MusicianType } from '../../types/musician.type';
 import { Observable } from 'rxjs';
-import { RegisterType } from '../../types/register.type';
 
 @Injectable({
   providedIn: 'root',
@@ -9,7 +9,7 @@ import { RegisterType } from '../../types/register.type';
 export class RegisterService {
   constructor(private http: HttpClient) {}
 
-  create(body: RegisterType): Observable<any> {
+  create(body: MusicianType): Observable<any> {
     return this.http.post<any>('musicians', body);
   }
 }

@@ -4,10 +4,16 @@ databaseChangeLog:
   - include:
       file: classpath:/db/changelog/create/instrument.xml
   - include:
+      file: classpath:/db/changelog/create/music_genre.xml
+  - include:
       file: classpath:/db/changelog/create/musician.xml
   - include:
       file: classpath:/db/changelog/create/band.xml
   - include:
       file: classpath:/db/changelog/create/band_musician.xml
   - include:
+      file: classpath:/db/changelog/create/musician_instrument.xml
+  - include:
       file: classpath:/db/changelog/insert/instrument.xml
+  - include:
+      file: classpath:/db/changelog/insert/music_genre.xml

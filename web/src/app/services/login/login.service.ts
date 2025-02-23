@@ -7,11 +7,27 @@ export class LoginService {
   observer = new EventEmitter();
 
   constructor() {
-    this.observer.subscribe(() => this.setLogged());
+    this.observer.subscribe((isLogged) => {
+      if (isLogged) {
+        this.setLogged();
+        return;
+      }
+
+      this.logout();
+    });
   }
 
   logout() {
     localStorage.removeItem('logged');
+    localStorage.removeItem('id');
+  }
+
+  setId(id: string) {
+    localStorage.setItem('id', id);
+  }
+
+  getId() {
+    return localStorage.getItem('id');
   }
 
   setLogged() {

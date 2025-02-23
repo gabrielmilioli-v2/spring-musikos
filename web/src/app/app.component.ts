@@ -16,7 +16,18 @@ export class AppComponent {
   isLogged = false;
 
   constructor(private router: Router, private loginService: LoginService) {
-    this.loginService.observer.subscribe((value) => (this.isLogged = value));
+    this.isLogged = !!this.loginService.isLogged();
+    this.checkLogged();
+    this.loginService.observer.subscribe((value) => {
+      this.isLogged = value;
+      this.checkLogged();
+    });
+  }
+
+  checkLogged() {
+    if (!this.isLogged) {
+      this.logout();
+    }
   }
 
   logout() {

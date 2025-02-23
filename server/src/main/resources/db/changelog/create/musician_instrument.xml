@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_table_musician_instrument" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="musician_instrument"/>
+            </not>
+        </preConditions>
+        <createTable tableName="musician_instrument">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="id_musician" type="uuid"/>
+            <column name="id_instrument" type="integer"/>
+            <column name="main" type="char(1)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_fk_musicianinst_instrument" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="instrument"/>
+                <tableExists tableName="musician_instrument"/>
+                <columnExists tableName="musician_instrument" columnName="id_instrument"/>
+                <columnExists tableName="instrument" columnName="id"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_musicianinst_instrument"
+                                                foreignKeyTableName="musician_instrument"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="musician_instrument"
+                                 baseColumnNames="id_instrument"
+                                 constraintName="fk_musicianinst_instrument"
+                                 referencedTableName="instrument"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_fk_musicianinst_musician" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="musician_instrument"/>
+                <tableExists tableName="musician"/>
+                <columnExists tableName="musician_instrument" columnName="id_musician"/>
+                <columnExists tableName="musician" columnName="id"/>
+                <not>
+                    <foreignKeyConstraintExists foreignKeyName="fk_musicianinst_musician"
+                                                foreignKeyTableName="musician_instrument"/>
+                </not>
+            </and>
+        </preConditions>
+        <addForeignKeyConstraint baseTableName="musician_instrument"
+                                 baseColumnNames="id_musician"
+                                 constraintName="fk_musicianinst_musician"
+                                 referencedTableName="musician"
+                                 referencedColumnNames="id"/>
+    </changeSet>
+
+    <changeSet id="add_unique_key_musician_instrument" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <and>
+                <tableExists tableName="musician_instrument"/>
+                <columnExists tableName="musician_instrument" columnName="id_musician"/>
+                <columnExists tableName="musician_instrument" columnName="id_instrument"/>
+                <not>
+                    <uniqueConstraintExists tableName="musician_instrument" constraintName="uk_musician_instrument"/>
+                </not>
+            </and>
+        </preConditions>
+        <addUniqueConstraint tableName="musician_instrument" columnNames="id_musician, id_instrument"
+                             constraintName="uk_musician_instrument"/>
+    </changeSet>
+
+</databaseChangeLog>

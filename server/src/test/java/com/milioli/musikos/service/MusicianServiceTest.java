@@ -2,7 +2,6 @@ package com.milioli.musikos.service;
 
 import com.milioli.musikos.config.GlobalTestConfig;
 import com.milioli.musikos.domain.Musician;
-import com.milioli.musikos.enums.Instrument;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,6 @@ public class MusicianServiceTest {
         musician.setLastName("Milioli");
         musician.setPassword("senha123");
         musician.setEmail("gabriel@milioli.com");
-        musician.setInstrument(Instrument.BAIXO);
 
         final Musician musicianCreated = service.save(musician);
         Assertions.assertThat(musicianCreated).isNotNull();

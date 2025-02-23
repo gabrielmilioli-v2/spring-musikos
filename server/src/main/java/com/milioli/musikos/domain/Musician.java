@@ -2,7 +2,6 @@ package com.milioli.musikos.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.milioli.musikos.core.BaseEntity;
-import com.milioli.musikos.enums.Instrument;
 import com.milioli.musikos.record.Address;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -43,10 +42,6 @@ public class Musician implements BaseEntity<UUID> {
     @JsonIgnore
     private String encodedPassword;
 
-    @Column(name = "id_instrument")
-    @NotNull
-    private Instrument instrument;
-
     @Length(max = 2000)
     private String description;
 
@@ -58,6 +53,9 @@ public class Musician implements BaseEntity<UUID> {
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
     private final Set<Band> bands = new HashSet<>();
+
+    @OneToMany(mappedBy = "musician", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final Set<MusicianInstrument> instruments = new HashSet<>();
 
     @Embedded
     private Address address;

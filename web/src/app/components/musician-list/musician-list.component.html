@@ -1,13 +1,40 @@
-<mat-list>
+<div class="flex flex-row flex-wrap gap-4">
   @for (musician of musicians; track musician) {
-    <mat-list-item>
-      <mat-icon matListItemIcon>folder</mat-icon>
-      <h3 matListItemTitle>{{musician.firstName}} {{musician.lastName}}</h3>
-      <p matListItemLine>
-      </p>
-      <button mat-icon-button matListItemMeta>
-        <mat-icon>info</mat-icon>
-     </button>
-    </mat-list-item>
+  <mat-card appearance="outlined" style="width: calc(25% - 12px)">
+    <mat-card-header>
+      <mat-card-title>
+        {{ musician.firstName }} {{ musician.lastName }}</mat-card-title
+      >
+      <mat-card-subtitle class="!text-xs !text-gray-400">
+        {{ musician.address?.city }} | {{ musician.address?.street }}
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header> </mat-card-header>
+    <div mat-card-image class="h-[250px] w-full relative overflow-hidden">
+      <img
+        src="https://picsum.photos/250"
+        class="w-full inset-0 m-auto absolute"
+      />
+    </div>
+    <mat-card-content>
+      <div class="mt-4">
+        <p class="!text-xs !text-gray-400">Instrument(s)</p>
+        <p class="!text-sm">
+          @for (instrument of musician.instruments; track instrument) {
+          <mat-chip> {{ instrument.instrument.description }}</mat-chip>
+          }
+        </p>
+      </div>
+      <div class="mt-4">
+        <p class="!text-xs !text-gray-400">About me</p>
+        <p class="!text-sm">{{ musician.description }}</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Contact <mat-icon>chat</mat-icon></button>
+      <button mat-button>Share <mat-icon>share</mat-icon></button>
+    </mat-card-actions>
+    <mat-card-footer></mat-card-footer>
+  </mat-card>
   }
-</mat-list>
+</div>

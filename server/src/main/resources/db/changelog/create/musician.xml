@@ -28,7 +28,6 @@
             <column name="encoded_password" type="varchar(100)">
                 <constraints nullable="false"/>
             </column>
-            <column name="id_instrument" type="integer"/>
             <column name="description" type="varchar(2000)"/>
             <column name="instagram" type="varchar(100)"/>
             <column name="phone" type="varchar(20)"/>
@@ -38,25 +37,6 @@
             <column name="city" type="varchar(100)"/>
             <column name="state" type="varchar(2)"/>
         </createTable>
-    </changeSet>
-
-    <changeSet id="add_fk_musician_instrument" author="gabriel.milioli">
-        <validCheckSum>ANY</validCheckSum>
-        <preConditions onFail="MARK_RAN">
-            <and>
-                <tableExists tableName="musician"/>
-                <tableExists tableName="instrument"/>
-                <not>
-                    <foreignKeyConstraintExists foreignKeyName="fk_musician_instrument"
-                                                foreignKeyTableName="musician"/>
-                </not>
-            </and>
-        </preConditions>
-        <addForeignKeyConstraint baseTableName="musician"
-                                 baseColumnNames="id_instrument"
-                                 constraintName="fk_musician_instrument"
-                                 referencedTableName="instrument"
-                                 referencedColumnNames="id"/>
     </changeSet>
 
 </databaseChangeLog>

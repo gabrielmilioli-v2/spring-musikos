@@ -1,23 +1,27 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { Component, WritableSignal, computed, signal } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MusicianInstrumentType, MusicianType } from '../../types/musician.type';
 
 import { AddressService } from '../../services/address/address.service';
-import { Component } from '@angular/core';
 import { EnumType } from '../../types/enum.type';
 import { InstrumentService } from '../../services/instrument/instrument.service';
 import { LoginService } from '../../services/login/login.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { RegisterService } from '../../services/register/register.service';
-import { RegisterType } from '../../types/register.type';
 import { Router } from '@angular/router';
 
 @Component({
@@ -30,6 +34,8 @@ import { Router } from '@angular/router';
     MatInputModule,
     MatSelectModule,
     MatCheckboxModule,
+    MatChipsModule,
+    MatIconModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -37,16 +43,14 @@ import { Router } from '@angular/router';
 export class RegisterComponent {
   loadingAddress = false;
   addressTimeout: number = 0;
-  instruments: EnumType[] = [];
+  instruments: WritableSignal<EnumType[]> = signal([]);
+  currentInstrument: WritableSignal<string> = signal('');
   form = new FormGroup({
     firstName: new FormControl<string>('', Validators.required),
     lastName: new FormControl<string>('', Validators.required),
     email: new FormControl<string>('', Validators.required),
     password: new FormControl<string>('', Validators.required),
-    instrument: new FormControl<EnumType | undefined>(
-      undefined,
-      Validators.required
-    ),
+    instruments: new FormBuilder().array<MusicianInstrumentType>([]),
     address: new FormGroup({
       state: new FormControl<string>(''),
       city: new FormControl<string>(''),
@@ -54,6 +58,22 @@ export class RegisterComponent {
       street: new FormControl<string>(''),
       postcode: new FormControl<string>(''),
     }),
+  });
+  readonly separatorKeysCodes: number[] = [ENTER, COMMA];
+  readonly filteredInstruments = computed(() => {
+    const currentInstrument = this.currentInstrument().toLowerCase();
+    console.log(this.instruments);
+
+    return currentInstrument
+      ? this.instruments().filter((instrument) =>
+          instrument.description.includes(currentInstrument)
+        )
+      : this.instruments().filter(
+          (instrument) =>
+            !this.form.value.instruments
+              ?.map((i) => i?.instrument?.id)
+              .includes(instrument.id)
+        );
   });
 
   constructor(
@@ -64,7 +84,8 @@ export class RegisterComponent {
     private addressService: AddressService
   ) {
     this.instrumentService.findAll().subscribe((instruments) => {
-      this.instruments = instruments;
+      this.instruments.set(instruments);
+      this.filteredInstruments;
     });
     if (loginService.isLogged()) {
       this.router.navigate(['/home']);
@@ -73,7 +94,7 @@ export class RegisterComponent {
 
   onSubmit() {
     this.registerService
-      .create(this.form.value as RegisterType)
+      .create(this.form.value as MusicianType)
       .subscribe((created) => {
         this.loginService.observer.emit(true);
         this.router.navigate(['/home']);
@@ -115,5 +136,48 @@ export class RegisterComponent {
           this.form.controls.address.controls.postcode.enable();
         },
       });
+  }
+
+  add(event: MatChipInputEvent): void {
+    const value = (event.value || '').trim();
+    console.log(value);
+
+    // Add our fruit
+    if (value) {
+      // this.form.controls.instruments.push(value);
+    }
+
+    // Clear the input value
+    this.currentInstrument.set('');
+  }
+
+  remove(instrument: EnumType): void {
+    /* this.form.controls.instruments.fin (instruments => {
+      const index = instruments.indexOf(fruit);
+      if (index < 0) {
+        return instruments;
+      }
+
+      instruments.splice(index, 1);
+      this.announcer.announce(`Removed ${fruit}`);
+      return [...instruments];
+    }); */
+  }
+
+  selected(event: any): void {
+    const value = event.option.value as EnumType;
+    this.form.controls.instruments.push(
+      new FormGroup({
+        id: new FormControl<string>(''),
+        instrument: new FormControl<EnumType | undefined>(
+          value,
+          Validators.required
+        ),
+        main: new FormControl<boolean>(false),
+      }) as any
+    );
+
+    this.currentInstrument.set('');
+    event.option.deselect();
   }
 }

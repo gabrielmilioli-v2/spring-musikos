@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="insert_music_genre" author="gabriel.milioli">
+        <validCheckSum>ANY</validCheckSum>
+        <preConditions onFail="MARK_RAN">
+            <tableExists tableName="music_genre"/>
+        </preConditions>
+        <sql>
+            INSERT INTO music_genre (id, description)
+            SELECT x.id, x.description
+            FROM ( values
+            (1, 'Pop'),
+            (2, 'Rock'),
+            (3, 'Hip Hop'),
+            (4, 'Jazz'),
+            (5, 'Classical'),
+            (6, 'Electronic'),
+            (7, 'Country'),
+            (8, 'R&amp;B'),
+            (9, 'Reggae'),
+            (10, 'Blues')
+            ) as x (id, description)
+            WHERE NOT EXISTS (SELECT 1 FROM music_genre i WHERE i.id = x.id)
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

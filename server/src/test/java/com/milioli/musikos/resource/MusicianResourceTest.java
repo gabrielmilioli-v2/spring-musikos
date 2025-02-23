@@ -3,7 +3,6 @@ package com.milioli.musikos.resource;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.milioli.musikos.config.GlobalTestConfig;
 import com.milioli.musikos.domain.Musician;
-import com.milioli.musikos.enums.Instrument;
 import com.milioli.musikos.record.Address;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,7 +50,6 @@ public class MusicianResourceTest {
         musician.setLastName("Milioli");
         musician.setPassword("senha123");
         musician.setEmail("gabriel@milioli.com");
-        musician.setInstrument(Instrument.BAIXO);
         musician.setAddress(new Address("88020340", "", "", "", ""));
 
         final String responseAsString = mockMvc.perform(post("/api/musicians")

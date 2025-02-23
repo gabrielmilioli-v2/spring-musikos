@@ -2,14 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 import { FilterService } from '../../services/filter/filter.service';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
 import { MusicianService } from '../../services/musician/musician.service';
 import { MusicianType } from '../../types/musician.type';
 
 @Component({
   selector: 'app-musician-list',
-  imports: [MatListModule, MatIconModule, MatButtonModule],
+  imports: [MatCardModule, MatIconModule, MatButtonModule, MatChipsModule],
   templateUrl: './musician-list.component.html',
   styleUrl: './musician-list.component.css',
 })

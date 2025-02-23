@@ -27,20 +27,39 @@
       </mat-form-field>
 
       <mat-form-field class="flex-1">
-        <mat-label>Main instrument</mat-label>
-        <mat-select formControlName="instrument">
-          @for (instrument of instruments; track instrument) {
+        <mat-label>Instruments</mat-label>
+        <mat-select (optionSelected)="selected($event);" >
+          @for (instrument of filteredInstruments(); track instrument) {
           <mat-option [value]="instrument">{{
-            instrument.description
+            instrument?.description
           }}</mat-option>
           }
         </mat-select>
+        <mat-chip-listbox aria-label="Instrument selection" class="mt-4">
+          @for (instrument of form.value.instruments; track $index) {
+          <!-- (removed)="remove(instrument)" -->
+          <mat-chip-row class="flex flex-1 w-full py-2">
+            {{ instrument?.instrument?.description }}
+            <button matChipRemove [attr.aria-label]="'remove ' + instrument">
+              <mat-icon>cancel</mat-icon>
+            </button>
+            <button matChipRemove [attr.aria-label]="'remove ' + instrument">
+              <mat-icon>check</mat-icon>
+            </button>
+          </mat-chip-row>
+          }
+        </mat-chip-listbox>
       </mat-form-field>
 
       <div formGroupName="address" class="w-full flex-1">
         <mat-form-field class="w-full">
           <mat-label>Postcode</mat-label>
-          <input matInput placeholder="Postcode" formControlName="postcode" (keyup)="handleKeyUpPostcode()" />
+          <input
+            matInput
+            placeholder="Postcode"
+            formControlName="postcode"
+            (keyup)="handleKeyUpPostcode()"
+          />
         </mat-form-field>
       </div>
 
