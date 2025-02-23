@@ -28,27 +28,36 @@
 
       <mat-form-field class="flex-1">
         <mat-label>Instruments</mat-label>
-        <mat-select (optionSelected)="selected($event);" >
+        <mat-select
+          (selectionChange)="selected($event)"
+          [(ngModel)]="currentInstrument"
+          [ngModelOptions]="{ standalone: true }"
+        >
           @for (instrument of filteredInstruments(); track instrument) {
           <mat-option [value]="instrument">{{
             instrument?.description
           }}</mat-option>
           }
         </mat-select>
-        <mat-chip-listbox aria-label="Instrument selection" class="mt-4">
+
+        <div class="mt-4">
           @for (instrument of form.value.instruments; track $index) {
           <!-- (removed)="remove(instrument)" -->
-          <mat-chip-row class="flex flex-1 w-full py-2">
-            {{ instrument?.instrument?.description }}
-            <button matChipRemove [attr.aria-label]="'remove ' + instrument">
+          <div
+            class="!text-sm rounded-md font-bold border text-gray-500 border-gray-500 flex items-center"
+          >
+            <button mat-icon-button>
               <mat-icon>cancel</mat-icon>
             </button>
-            <button matChipRemove [attr.aria-label]="'remove ' + instrument">
-              <mat-icon>check</mat-icon>
+            <div class="flex-1">
+              {{ instrument?.instrument?.description }}
+            </div>
+            <button mat-icon-button>
+              <mat-icon>cancel</mat-icon>
             </button>
-          </mat-chip-row>
+          </div>
           }
-        </mat-chip-listbox>
+        </div>
       </mat-form-field>
 
       <div formGroupName="address" class="w-full flex-1">

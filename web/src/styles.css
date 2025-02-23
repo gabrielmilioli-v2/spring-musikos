@@ -11,7 +11,3 @@ body {
 .mdc-notched-outline__notch {
   border-right: none;
 }
-.mdc-evolution-chip-set__chips {
-  display: flex;
-  flex-direction: column !important;
-}

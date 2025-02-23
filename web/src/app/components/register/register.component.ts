@@ -9,7 +9,11 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { MusicianInstrumentType, MusicianType } from '../../types/musician.type';
+import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import {
+  MusicianInstrumentType,
+  MusicianType,
+} from '../../types/musician.type';
 
 import { AddressService } from '../../services/address/address.service';
 import { EnumType } from '../../types/enum.type';
@@ -20,7 +24,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
+import { MatListModule } from '@angular/material/list';
 import { RegisterService } from '../../services/register/register.service';
 import { Router } from '@angular/router';
 
@@ -36,6 +40,7 @@ import { Router } from '@angular/router';
     MatCheckboxModule,
     MatChipsModule,
     MatIconModule,
+    MatListModule
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -61,8 +66,9 @@ export class RegisterComponent {
   });
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly filteredInstruments = computed(() => {
+    console.log(this.currentInstrument);
+    
     const currentInstrument = this.currentInstrument().toLowerCase();
-    console.log(this.instruments);
 
     return currentInstrument
       ? this.instruments().filter((instrument) =>
@@ -138,6 +144,11 @@ export class RegisterComponent {
       });
   }
 
+  teste(e: any) {
+    console.log(e);
+    
+  }
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     console.log(value);
@@ -164,8 +175,10 @@ export class RegisterComponent {
     }); */
   }
 
-  selected(event: any): void {
-    const value = event.option.value as EnumType;
+  selected(event: MatSelectChange): void {
+    console.log(event);
+
+    const value = event.value as EnumType;
     this.form.controls.instruments.push(
       new FormGroup({
         id: new FormControl<string>(''),
@@ -178,6 +191,5 @@ export class RegisterComponent {
     );
 
     this.currentInstrument.set('');
-    event.option.deselect();
   }
 }
