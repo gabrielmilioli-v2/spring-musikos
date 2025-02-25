@@ -1,14 +1,4 @@
-<mat-toolbar>
-  <span>
-    <img src="images/logo.png" class="h-[64px]" />
-  </span>
-  <span class="flex-1"></span>
-  @if (isLogged) {
-  <button mat-stroked-button aria-label="Login button" (click)="logout()">
-    Logout
-  </button>
-  }
-</mat-toolbar>
+<app-header></app-header>
 <div class="py-4 px-8">
   <router-outlet />
 </div>

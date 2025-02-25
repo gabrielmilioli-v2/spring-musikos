@@ -6,7 +6,8 @@
         {{ musician.firstName }} {{ musician.lastName }}</mat-card-title
       >
       <mat-card-subtitle class="!text-xs !text-gray-400">
-        {{ musician.address?.city }} | {{ musician.address?.street }}
+        {{ musician.address?.city }} {{ musician.address?.city && "|" }}
+        {{ musician.address?.street }}
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-header> </mat-card-header>

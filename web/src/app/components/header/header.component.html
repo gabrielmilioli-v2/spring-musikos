@@ -1,0 +1,16 @@
+<mat-toolbar>
+  <span>
+    <img src="images/logo.png" class="h-[64px]" />
+  </span>
+  <span class="flex-1"></span>
+  @if (isLogged) {
+  <button mat-icon-button aria-label="Menu icon" [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  }
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item aria-label="Profile button" (click)="goToProfile()"><mat-icon>person</mat-icon>My profile</button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item aria-label="Login button" (click)="logout()"><mat-icon>logout</mat-icon>Logout</button>
+</mat-menu>
