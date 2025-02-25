@@ -19,9 +19,8 @@ public class MusicianInstrument implements BaseEntity<UUID> {
     @Column
     private UUID id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_musician")
-    @NotNull
     private Musician musician;
 
     @Column(name = "id_instrument")

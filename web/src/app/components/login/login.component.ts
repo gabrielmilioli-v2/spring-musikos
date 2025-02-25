@@ -1,3 +1,4 @@
+import { Component, inject } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -6,11 +7,11 @@ import {
   Validators,
 } from '@angular/forms';
 
-import { Component } from '@angular/core';
 import { LoginService } from '../../services/login/login.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,9 +26,10 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent  {
+export class LoginComponent {
+  private _snackBar = inject(MatSnackBar);
   form = new FormGroup({
-    email: new FormControl<string>('', Validators.required),
+    email: new FormControl<string>('', [Validators.required, Validators.email]),
     password: new FormControl<string>('', Validators.required),
   });
 
@@ -38,8 +40,22 @@ export class LoginComponent  {
   }
 
   onSubmit() {
-    this.loginService.observer.emit(true);
-    this.router.navigate(['/home']);
+    this.loginService
+      .checkPassword(
+        this.form.value.email as string,
+        this.form.value.password as string
+      )
+      .subscribe({
+        next: (value) => {
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          console.log(err);
+          this._snackBar.open('Invalid credentials.', undefined, {
+            duration: 3000
+          });
+        },
+      });
   }
 
   goToRegister() {

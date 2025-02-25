@@ -1,2 +1,2 @@
 insert into musician (id, first_name, last_name, email, encoded_password, postcode)
-    values ('cf980cb7-208c-4d82-860f-fb1bd575f673', 'gabriel', 'milioli', 'gabriel@milioli.com', 'senha123', '88020340');
+    values ('cf980cb7-208c-4d82-860f-fb1bd575f673', 'gabriel', 'milioli', 'senha123@milioli.com', '$2a$10$quBZc/iEcPmVNKCkEMdIIO3k5E7gyTRP41401PPUzvQDmckcfnwFq', '88020340');

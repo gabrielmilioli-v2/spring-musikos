@@ -3,17 +3,32 @@
     <div class="flex gap-2 flex-col">
       <mat-form-field class="flex-1">
         <mat-label>First name</mat-label>
-        <input matInput placeholder="First name" formControlName="firstName" />
+        <input
+          matInput
+          placeholder="First name"
+          formControlName="firstName"
+          name="firstName"
+        />
       </mat-form-field>
 
       <mat-form-field class="flex-1">
         <mat-label>Last name</mat-label>
-        <input matInput placeholder="Last name" formControlName="lastName" />
+        <input
+          matInput
+          placeholder="Last name"
+          formControlName="lastName"
+          name="lastName"
+        />
       </mat-form-field>
 
       <mat-form-field class="flex-1">
         <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" formControlName="email" />
+        <input
+          matInput
+          placeholder="Email"
+          formControlName="email"
+          name="email"
+        />
       </mat-form-field>
 
       <mat-form-field class="flex-1">
@@ -22,6 +37,7 @@
           matInput
           placeholder="Password"
           formControlName="password"
+          name="password"
           type="password"
         />
       </mat-form-field>
@@ -67,6 +83,7 @@
             matInput
             placeholder="Postcode"
             formControlName="postcode"
+            name="postcode"
             (keyup)="handleKeyUpPostcode()"
           />
         </mat-form-field>

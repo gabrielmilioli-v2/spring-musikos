@@ -8,8 +8,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -52,10 +52,10 @@ public class Musician implements BaseEntity<UUID> {
     private String phone;
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final Set<Band> bands = new HashSet<>();
+    private final List<Band> bands = new ArrayList<>();
 
     @OneToMany(mappedBy = "musician", cascade = CascadeType.ALL, orphanRemoval = true)
-    private final Set<MusicianInstrument> instruments = new HashSet<>();
+    private final List<MusicianInstrument> instruments = new ArrayList<>();
 
     @Embedded
     private Address address;
