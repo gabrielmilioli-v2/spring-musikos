@@ -40,7 +40,7 @@ import { Router } from '@angular/router';
     MatCheckboxModule,
     MatChipsModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
@@ -67,7 +67,7 @@ export class RegisterComponent {
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly filteredInstruments = computed(() => {
     console.log(this.currentInstrument);
-    
+
     const currentInstrument = this.currentInstrument().toLowerCase();
 
     return currentInstrument
@@ -93,7 +93,7 @@ export class RegisterComponent {
       this.instruments.set(instruments);
       this.filteredInstruments;
     });
-    if (loginService.isLogged()) {
+    if (loginService.getId()) {
       this.router.navigate(['/home']);
     }
   }
@@ -102,7 +102,7 @@ export class RegisterComponent {
     this.registerService
       .create(this.form.value as MusicianType)
       .subscribe((created) => {
-        this.loginService.observer.emit(true);
+        this.loginService.idLoggedObserver.emit(created?.id);
         this.router.navigate(['/home']);
       });
   }
@@ -146,7 +146,6 @@ export class RegisterComponent {
 
   teste(e: any) {
     console.log(e);
-    
   }
 
   add(event: MatChipInputEvent): void {

@@ -11,3 +11,7 @@ body {
 .mdc-notched-outline__notch {
   border-right: none;
 }
+.mdc-evolution-chip__text-label {
+  display: flex;
+  align-items: center;
+}

@@ -20,25 +20,25 @@ import { Router } from '@angular/router';
   styleUrl: './header.component.css',
 })
 export class HeaderComponent {
-  isLogged = false;
+  id: string;
 
   constructor(private router: Router, private loginService: LoginService) {
-    this.isLogged = !!this.loginService.isLogged();
+    this.id = this.loginService.getId();
     this.checkLogged();
-    this.loginService.observer.subscribe((value) => {
-      this.isLogged = value;
+    this.loginService.idLoggedObserver.subscribe((value) => {
+      this.id = value;
       this.checkLogged();
     });
   }
 
   checkLogged() {
-    if (!this.isLogged) {
+    if (!this.id) {
       this.logout();
     }
   }
 
   logout() {
-    this.loginService.observer.emit(false);
+    this.loginService.idLoggedObserver.emit(false);
     this.goToLogin();
   }
 

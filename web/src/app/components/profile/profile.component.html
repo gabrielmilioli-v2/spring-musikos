@@ -1,0 +1,60 @@
+<div class="flex flex-col gap-4">
+  <!-- Personal -->
+  <div class="flex flex-1 gap-4">
+    <div
+      class="w-[250px] h-[250px] relative overflow-hidden rounded-xl border border-gray-400"
+    >
+      <img
+        src="https://picsum.photos/250"
+        class="w-full inset-0 m-auto absolute"
+      />
+    </div>
+    <div class="flex flex-1 flex-col rounded-xl border border-gray-400 gap-4 py-6 px-4">
+      <div class="flex flex-col">
+        <h2 class="font-medium text-2xl">
+          {{ musician?.firstName }} {{ musician?.lastName }}
+        </h2>
+      </div>
+
+      <div class="flex gap-4">
+        @if (isMine) {
+        <div class="flex-1">
+          <span class="font-medium text-xs text-gray-400">Email</span>
+          <p class="text-sm">{{ musician?.email }}</p>
+        </div>
+        <div class="flex-1">
+          <span class="font-medium text-xs text-gray-400">Phone</span>
+          <p class="text-sm">{{ musician?.phone | notInformed }}</p>
+        </div>
+        }
+        <div class="flex-1">
+          <span class="font-medium text-xs text-gray-400">Instagram</span>
+          <p class="text-sm">{{ musician?.instagram | notInformed }}</p>
+        </div>
+      </div>
+      <div class="flex-1">
+        <span class="font-medium text-xs text-gray-400">About</span>
+        <p class="text-sm">{{ musician?.about | notInformed }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex flex-1 flex-col rounded-xl border border-gray-400 gap-4 py-6 px-4">
+    <h2 class="font-medium text-2xl">Instruments</h2>
+    <mat-chip-set aria-label="Instruments">
+      @for (instrument of musician?.instruments; track instrument) {
+      <mat-chip [title]="instrument.favorite ? 'Favorite' : ''">
+        {{ instrument.instrument.description }}
+        @if (instrument.favorite) {
+        <mat-icon class="ml-1 !text-[18px] !h-[18px] !w-[18px] !text-red-400">
+          favorite
+        </mat-icon>
+        }
+      </mat-chip>
+      }
+    </mat-chip-set>
+  </div>
+  <div class="flex flex-1 flex-col rounded-xl border border-gray-400 gap-4 py-6 px-4">
+    <h2 class="font-medium text-2xl">Bands</h2>
+  </div>
+</div>

@@ -5,12 +5,14 @@ export type MusicianType = {
   firstName: string;
   lastName: string;
   email: string;
-  description?: string;
+  about?: string;
+  phone?: string;
+  instagram?: string;
   instruments: MusicianInstrumentType[];
   address?: AddressType;
 };
 
 export type MusicianInstrumentType = {
   instrument: EnumType;
-  main: boolean;
+  favorite: boolean;
 };

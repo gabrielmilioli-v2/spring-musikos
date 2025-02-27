@@ -34,25 +34,25 @@ export class LoginComponent {
   });
 
   constructor(private router: Router, private loginService: LoginService) {
-    if (loginService.isLogged()) {
+    if (loginService.getId()) {
       this.router.navigate(['/home']);
     }
   }
 
   onSubmit() {
     this.loginService
-      .checkPassword(
+      .login(
         this.form.value.email as string,
         this.form.value.password as string
       )
       .subscribe({
         next: (value) => {
+          this.loginService.setId(value);
           this.router.navigate(['/home']);
         },
         error: (err) => {
-          console.log(err);
           this._snackBar.open('Invalid credentials.', undefined, {
-            duration: 3000
+            duration: 3000,
           });
         },
       });

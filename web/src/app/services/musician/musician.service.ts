@@ -13,6 +13,10 @@ import { Observable } from 'rxjs';
 export class MusicianService {
   constructor(private http: HttpClient) {}
 
+  findById(id: string): Observable<any> {
+    return this.http.get<any>(`musicians/${id}`);
+  }
+
   findAll(pageRequest: PageRequestType = PageRequestDefault): Observable<any> {
     return this.http.get<any>('musicians', {
       params: pageRequest,

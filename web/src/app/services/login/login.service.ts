@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class LoginService {
-  observer = new EventEmitter();
+  idLoggedObserver = new EventEmitter();
 
   constructor(private http: HttpClient) {
-    this.observer.subscribe((isLogged) => {
-      if (isLogged) {
-        this.setLogged();
+    this.idLoggedObserver.subscribe((id) => {
+      if (id) {
+        this.setId(id);
         return;
       }
 
@@ -20,15 +20,14 @@ export class LoginService {
     });
   }
 
-  checkPassword(email: string, password: string): Observable<void> {
-    return this.http.post<void>(
-      `login/check-password?email=${email}&password=${password}`,
-      { email, password }
-    );
+  login(email: string, password: string): Observable<string> {
+    return this.http.post<string>(`login?email=${email}&password=${password}`, {
+      email,
+      password,
+    });
   }
 
   logout() {
-    localStorage.removeItem('logged');
     localStorage.removeItem('id');
   }
 
@@ -36,15 +35,7 @@ export class LoginService {
     localStorage.setItem('id', id);
   }
 
-  getId() {
-    return localStorage.getItem('id');
-  }
-
-  setLogged() {
-    localStorage.setItem('logged', 'true');
-  }
-
-  isLogged() {
-    return localStorage.getItem('logged');
+  getId(): string {
+    return localStorage.getItem('id') as string;
   }
 }
