@@ -1,5 +1,6 @@
 package com.milioli.musikos.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.milioli.musikos.core.BaseEntity;
 import com.milioli.musikos.enums.Instrument;
 import jakarta.persistence.*;
@@ -21,11 +22,13 @@ public class BandMusician implements BaseEntity<UUID> {
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_band")
+    @JsonIgnoreProperties({"musician.bands"})
     @NotNull
     private Band band;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_musician")
+    @JsonIgnoreProperties({"bands"})
     @NotNull
     private Musician musician;
 
@@ -34,6 +37,6 @@ public class BandMusician implements BaseEntity<UUID> {
     private Instrument instrument;
 
     @Length(max = 255)
-    private String description;
+    private String about;
 
 }

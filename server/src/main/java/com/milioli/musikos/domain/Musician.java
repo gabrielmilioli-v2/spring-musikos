@@ -1,6 +1,7 @@
 package com.milioli.musikos.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.milioli.musikos.core.BaseEntity;
 import com.milioli.musikos.record.Address;
 import jakarta.persistence.*;
@@ -43,7 +44,7 @@ public class Musician implements BaseEntity<UUID> {
     private String encodedPassword;
 
     @Length(max = 2000)
-    private String description;
+    private String about;
 
     @Length(max = 100)
     private String instagram;
@@ -52,9 +53,12 @@ public class Musician implements BaseEntity<UUID> {
     private String phone;
 
     @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties({"createdBy"})
     private final List<Band> bands = new ArrayList<>();
 
     @OneToMany(mappedBy = "musician", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("favorite")
+    @JsonIgnoreProperties("musician")
     private final List<MusicianInstrument> instruments = new ArrayList<>();
 
     @Embedded

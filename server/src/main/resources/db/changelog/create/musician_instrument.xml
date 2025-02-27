@@ -18,7 +18,7 @@
             </column>
             <column name="id_musician" type="uuid"/>
             <column name="id_instrument" type="integer"/>
-            <column name="main" type="char(1)"/>
+            <column name="favorite" type="char(1)"/>
         </createTable>
     </changeSet>
 

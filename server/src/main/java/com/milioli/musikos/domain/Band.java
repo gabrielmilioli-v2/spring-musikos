@@ -33,7 +33,7 @@ public class Band implements BaseEntity<UUID> {
     private Musician createdBy;
 
     @Length(max = 2000)
-    private String description;
+    private String about;
 
     @Length(max = 100)
     private String instagram;

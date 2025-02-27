@@ -29,6 +29,6 @@ public class MusicianInstrument implements BaseEntity<UUID> {
 
     @Convert(converter = YesNoConverter.class)
     @NotNull
-    private Boolean main;
+    private Boolean favorite;
 
 }

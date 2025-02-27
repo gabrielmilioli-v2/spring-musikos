@@ -26,7 +26,7 @@ public class LoginResourceTest {
 
     @Test
     void checkPassword() throws Exception {
-        mockMvc.perform(post("/api/login/check-password")
+        mockMvc.perform(post("/api/login")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content("{\"email\":\"senha123@milioli.com\", \"password\":\"senha123\"}"))
                 .andExpect(status().isOk());

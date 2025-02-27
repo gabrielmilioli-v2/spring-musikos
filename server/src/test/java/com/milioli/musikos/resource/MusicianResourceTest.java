@@ -37,6 +37,18 @@ public class MusicianResourceTest {
     }
 
     @Test
+    void findAllPageable() throws Exception {
+        mockMvc.perform(get("/api/musicians?sort=id,asc&page=0&size=10"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void findAllSearch() throws Exception {
+        mockMvc.perform(get("/api/musicians?search=id=='cf980cb7-208c-4d82-860f-fb1bd575f673'"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
     void findById() throws Exception {
         mockMvc.perform(get("/api/musicians/cf980cb7-208c-4d82-860f-fb1bd575f673"))
                 .andExpect(status().isOk());

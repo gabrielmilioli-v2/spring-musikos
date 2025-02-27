@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("api/login")
 public class LoginResource {
@@ -15,9 +17,9 @@ public class LoginResource {
     @Autowired
     private LoginService loginService;
 
-    @PostMapping("/check-password")
-    public void checkPassword(@RequestBody Login login) {
-        loginService.checkPassword(login);
+    @PostMapping
+    public UUID checkPasswordAndReturnId(@RequestBody Login login) {
+        return loginService.checkPasswordAndReturnId(login);
     }
 
 }
